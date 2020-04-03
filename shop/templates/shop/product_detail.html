@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+
+{% block content %}
+
+    <div>
+        <h3>{{ product.name }}</h3>
+        <small>{{ product.price }} $$$ </small><br>
+        <p>{{ product.description }}</p><br>
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" width="300">
+
+    </div>
+
+    <br><br>
+    {% if product.available %}
+        <form action="{% url 'cart:cart_add' product.id %}" method="post">   {# etelaatesho mifresim ba metode post be cart_Add ke unam mifreste be viesh #}
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="add to cart">
+        </form>
+    {% else %}
+        <small>موجود نیست</small>
+    {% endif %}
+
+{% endblock %}

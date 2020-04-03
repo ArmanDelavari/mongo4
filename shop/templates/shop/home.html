@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}home{% endblock %}
+
+{% block content %}
+
+    {% for category in categories %}
+
+        <div class="btn-group">
+            <a href="{{ category.get_absolute_url }}" class="btn btn-danger">{{ category.name }}</a>
+            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+            </button>
+            <div class="dropdown-menu">
+
+                {% for sub in category.scategory.all %}
+                <a class="dropdown-item" href="{{sub.get_absolute_url}}">{{sub.name}}</a>
+                    {% endfor %}
+
+            </div>
+        </div>
+    {% endfor %}
+
+<br><br>
+
+
+{% for product in products %}
+<div class="card" style="width: 18rem;display: inline-block">
+  <img src="{{product.image.url}}" class="card-body" alt="..." width="240" height="240">
+  <div class="card-body">
+    <h5 class="card-title">{{ product.name }}</h5>
+  <small>{{ product.price }} $$$</small><br>
+      {% if product.available %}
+    <a href="{{product.get_absolute_url}}" class="btn btn-primary">موجود است</a>
+      {% else %}
+    <a href="{{ product.get_absolute_url }}" class="btn btn-warning">موجود نیست</a>
+      {% endif %}
+  </div>
+</div>
+    {% endfor %}
+
+
+{% endblock %}
+
+
+
+
